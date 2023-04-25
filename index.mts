@@ -1,45 +1,33 @@
-import axios, { AxiosInstance } from "axios";
-//TODO: SET UP TYPESCRIPT
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
+//_ CUSTOM IMPORTS
 import {consola} from "consola";
 
+//_ LOCAL IMPORTS
+import pkg from "./match.ts";
+const { getPokeSet3, getPokeSet1 } = pkg;
+
+//DONE: SET UP TYPESCRIPT
+
 //_ CREATE GENERAL API INSTANCE
-const POKEAPI_INSTANCE: AxiosInstance = axios.create({
-    baseURL: "https://pokeapi.co/api/v2"
-});
 
 //DONE: NEED LIST OF TEST POKEMON
-const TEST_POKEMON: string[] = [
+//* to be changed later depending on desired input
+//* possible to allow for corrections to pokemon name, incase of misinput
+//* also possible to allow random pokedeck generation?
+
+const TEST_POKEDECK: string[] = [
     "manectric",
-    "Bisharp",
-    "Leafeon",
-    "Scolipede",
+    "bisharp",
+    "leafeon",
+    "scolipede",
     "chewtle",
-    "Nosepass"
+    "nosepass"
 ];
 
 //TODO: NEED FUNCTION TO COMPARE POKEMON
 
-//DONE: FETCH AND DISPLAY POKEMON TO TERMINAL
-const getPokemon = async (name: string) => {
+consola.info(await getPokeSet3(TEST_POKEDECK));
 
-    const POKEMON_RESPONSE = await POKEAPI_INSTANCE.request({
-        url: `/pokemon/${name}`,
-        method: "get"
-    });
-
-    return POKEMON_RESPONSE.data;
-};
-
-//TODO: GET DAMAGE RELATIONS FOR A POKEMON
-const getDamageRelations = async (type: string) => {
-
-    const DAMAGE_REL_RES = await POKEAPI_INSTANCE.request({
-        url: `/type/${type}`,
-        method: "get"
-    });
-
-    return DAMAGE_REL_RES.data;
-};
-
-consola.info(await getPokemon(TEST_POKEMON[0]));
+//TODO: CREATE POKEMON TS-TYPE, TO EXTRACT REQUIRED INFO OF POKEMON ONLY, AND POSSIBLY A TYPESET & POKESET
+//TODO: HOW TO FILTER POKEMON FETCHED IN TERMS OF TYPE
